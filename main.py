@@ -1,4 +1,4 @@
-from .scrape import Scrape
-from .db import Database
+from engine import scrape, db
 
-scraper = Scrape()
+scraper = scrape.Scrape()
+print(scraper.param)

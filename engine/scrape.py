@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from urllib import request
-from .etc import driver, logger
+from etc import driver, logger
 
 class Scrape:
     def __init__(self):
