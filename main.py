@@ -1,4 +1,4 @@
 from engine import scrape, db
 
 scraper = scrape.Scrape()
-scraper.crawl(lang='ja', word='シコ', user='umemiya_umeume')
+scraper.crawl(lang='ja', word='失恋', user='inage39')
