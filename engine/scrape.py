@@ -10,21 +10,25 @@ class Scrape:
 
     def crawl(self, **attrs):
         uri = self.__construct_query(attrs)
+        print(uri)
         req = request.Request(url=uri)
         with request.urlopen(req) as resp:
             b = resp.read()
+        print(b)
 
     def __construct_query(self, attrs):
         base = self.param['server']['api']
         base += '?'
         items_checker = {
-            'lang':"lang={}",
-            'user':"(from:%3A{})",
+            'lang':"lang={}&",
+            'user':"(from:{})",
             'word':"{}"
         }
         for k, v in items_checker.items():
             if k in attrs.keys():
+                if not k == 'lang' and not 'q=' in base:
+                    base += 'q='
                 base += v.format(attrs[k])
-            base += '&'
+
 
         return base
