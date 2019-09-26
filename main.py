@@ -1,4 +1,4 @@
 from engine import scrape, db
 
 scraper = scrape.Scrape()
-scraper.crawl(lang='ja', word='失恋', user='inage39')
+html_body = scraper.crawl(lang='ja', word='手取り15万', user='inage39')

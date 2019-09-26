@@ -28,6 +28,7 @@ class Scrape:
                 if not k == 'lang' and not 'q=' in base:
                     base += 'q='
                 base += v.format(attrs[k])
-
-
         return base
+
+    def scrape(self, body):
+        pass
