@@ -20,7 +20,7 @@ class Scrape:
 
     def __construct_query(self, attrs):
         base = self.param['server']['api']
-
+        self.word = attrs['word']
         base += '?'
         items_checker = {
             'lang':"lang={}&",
@@ -36,5 +36,16 @@ class Scrape:
                 base += v.format(attrs[k])
         return base
 
-    def tweet_scrape(self, body):
-        pass
+    def tweet_scrape(self, body, parser='lxml'):
+        scrap_contents = ['strong', 'a']
+        soup = BeautifulSoup(body, parser)
+        tweets = soup.find_all('p', attrs={ 'class': 'TweetTextSize'})
+        contents_stacks = []
+        for tweet in tweets:
+            for scrap_content in scrap_contents:
+                if not None == tweet.find(scrap_content):
+                    tweet.find(scrap_content).replace_with(tweet.find(scrap_content).contents[0])
+                else:
+                    continue
+            contents_stacks.append(tweet.contents[0])
+        return contents_stacks
