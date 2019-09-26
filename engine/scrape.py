@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-from urllib import request
+from urllib import request, parse
+import unicodedata
 from etc import driver, logger
 
 class Scrape:
@@ -11,8 +12,9 @@ class Scrape:
     def crawl(self, **attrs):
         uri = self.__construct_query(attrs)
         req = request.Request(url=uri)
+        print(req)
         with request.urlopen(req) as resp:
-            b = resp.read()
+            b = resp.read().decode('UTF-8')
         return b
 
     def __construct_query(self, attrs):
@@ -27,6 +29,8 @@ class Scrape:
             if k in attrs.keys():
                 if not k == 'lang' and not 'q=' in base:
                     base += 'q='
+                attrs[k] = parse.quote(attrs[k]) if not unicodedata.east_asian_width(attrs[k][0]) == 'Na' else attrs[k]
+
                 base += v.format(attrs[k])
         return base
 
