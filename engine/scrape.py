@@ -11,14 +11,16 @@ class Scrape:
 
     def crawl(self, **attrs):
         uri = self.__construct_query(attrs)
-        req = request.Request(url=uri)
-        print(req)
+        ua = self.param['server']['ua']
+        req = request.Request(url=uri, headers={ 'User-Agent': ua})
+        print(uri)
         with request.urlopen(req) as resp:
             b = resp.read().decode('UTF-8')
         return b
 
     def __construct_query(self, attrs):
         base = self.param['server']['api']
+
         base += '?'
         items_checker = {
             'lang':"lang={}&",
@@ -34,5 +36,5 @@ class Scrape:
                 base += v.format(attrs[k])
         return base
 
-    def scrape(self, body):
+    def tweet_scrape(self, body):
         pass
