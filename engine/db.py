@@ -42,3 +42,6 @@ class Tweet(Database.Base):
     def __repr__(self):
         return "<Tweet(id={}, name={}, sentence={})>".format(str(self.id), self.name, self.sentence)
 
+    def create(self):
+        Database.Base.metadata.create_all(bind=Database.ENGINE)
+
