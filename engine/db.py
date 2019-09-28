@@ -31,8 +31,11 @@ class Database:
         self.Base = declarative_base()
         self.Base.query = self.session.query_property()
 
-class Tweet(Database.Base):
+class Tweet:
     def __init__(self):
+        """
+        :param base: sqlalchemyののdeclarative_base()をインスタンス化したものを受け取る
+        """
         __tablename__ = 'tweets'
         # sqlalchemyはプライマリキーが有効になっていると自動でオートインクリメントが適応される
         self.id = Column(Integer, primary_key=True)
@@ -42,6 +45,6 @@ class Tweet(Database.Base):
     def __repr__(self):
         return "<Tweet(id={}, name={}, sentence={})>".format(str(self.id), self.name, self.sentence)
 
-    def create(self):
-        Database.Base.metadata.create_all(bind=Database.ENGINE)
+    def create(self, base, engine):
+        base.metadata.create_all(bind=engine)
 
