@@ -7,6 +7,7 @@ class Scrape:
     def __init__(self):
         yml_path = './config.yml'
         self.param = driver.read_yaml(yml_path)
+        self.log = logger.Logger()
 
 
     def crawl(self, **attrs):
@@ -41,6 +42,7 @@ class Scrape:
         soup = BeautifulSoup(body, parser)
         tweets = soup.find_all('p', attrs={ 'class': 'TweetTextSize'})
         contents_stacks = []
+        self.log.debug(tweets)
         for tweet in tweets:
             for scrap_content in scrap_contents:
                 if not None == tweet.find(scrap_content):
