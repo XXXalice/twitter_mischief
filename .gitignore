@@ -3,3 +3,5 @@ config.yml
 __pycache__
 
 .idea
+
+.log

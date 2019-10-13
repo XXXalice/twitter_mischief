@@ -40,6 +40,8 @@ class Scrape:
     def tweet_scrape(self, body, parser='lxml'):
         # scrap_contents = ['strong', 'a']
         soup = BeautifulSoup(body, parser)
+        for tweet in soup.find_all('p', attrs={'class': 'TweetTextSize'}):
+            print(tweet)
         tweets = [tweet.text for tweet in soup.find_all('p', attrs={ 'class': 'TweetTextSize'})]
         # contents_stacks = []
         # for tweet in tweets:
