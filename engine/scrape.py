@@ -38,16 +38,17 @@ class Scrape:
         return base
 
     def tweet_scrape(self, body, parser='lxml'):
-        scrap_contents = ['strong', 'a']
+        # scrap_contents = ['strong', 'a']
         soup = BeautifulSoup(body, parser)
-        tweets = soup.find_all('p', attrs={ 'class': 'TweetTextSize'})
-        contents_stacks = []
-        self.log.debug(tweets)
-        for tweet in tweets:
-            for scrap_content in scrap_contents:
-                if not None == tweet.find(scrap_content):
-                    tweet.find(scrap_content).replace_with(tweet.find(scrap_content).contents[0])
-                else:
-                    continue
-            contents_stacks.append(tweet.contents[0])
-        return contents_stacks
+        tweets = [tweet.text for tweet in soup.find_all('p', attrs={ 'class': 'TweetTextSize'})]
+        # contents_stacks = []
+        # for tweet in tweets:
+        #     self.log.debug(tweet.text)
+        #     for scrap_content in scrap_contents:
+        #         if not None == tweet.find(scrap_content):
+        #             tweet.find(scrap_content).replace_with(tweet.find(scrap_content).contents[0])
+        #         else:
+        #             continue
+        #     contents_stacks.append(tweet.contents[0])
+        # return contents_stacks
+        return tweets
